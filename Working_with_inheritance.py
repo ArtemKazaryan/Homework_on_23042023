@@ -77,14 +77,105 @@ trapezoid.get_area()
 
 
 
-
-
 # Задание 2
 # Для классов из задания 1 нужно переопределить магические методы int(возвращает площадь)
-# и str(возвращает
-# информацию о фигуре).
+# и str(возвращает информацию о фигуре).
 #
 # Решение:
+print()
+print('-'*49)
+print('*'*11, 'РЕЗУЛЬТАТЫ ПО ЗАДАНИЮ №2:', '*'*11)
+
+from math import pi
+
+class Figure:
+    print()
+    print(f'Площади известных фигур:')
+    def get_area(self):
+        pass
+    def __str__(self):
+        return 'Это фигура!'
+    def __int__(self):
+        return self.get_area()
+
+class Rectangle(Figure):
+    def __init__(self, side_1, side_2):
+        self.side_1 = side_1
+        self.side_2 = side_2
+
+    def get_area(self):
+        print(f'int -> Площадь прямоугольника со сторонами {self.side_1} и {self.side_2} равна {self.side_1 * self.side_2}')
+        return self.side_1 * self.side_2
+
+    def __str__(self):
+        return f'str -> Прямоугольник со сторонами {self.side_1} и {self.side_2}'
+
+    def __int__(self):
+        return int(self.get_area())
+
+class Circle(Figure):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def get_area(self):
+        print(f'int -> Площадь круга с радиусом {self.radius} равна {round(pi * self.radius ** 2, 3)}')
+        return round(pi * self.radius ** 2, 3)
+
+    def __str__(self):
+        return f'str -> Окружность с радиусом {self.radius}'
+
+    def __int__(self):
+        return int(self.get_area())
+
+class RectangularTriangle(Figure):
+    def __init__(self, cathet_1, cathet_2):
+        self.cathet_1 = cathet_1
+        self.cathet_2 = cathet_2
+
+    def get_area(self):
+        print(f'int -> Площадь прямоугольного треугольника с катетами {self.cathet_1} и {self.cathet_2} равна {(self.cathet_1 * self.cathet_2) / 2}')
+        return (self.cathet_1 * self.cathet_2) / 2
+
+    def __str__(self):
+        return f'str -> Прямоугольный треугольник с катетами {self.cathet_1} и {self.cathet_2}'
+
+    def __int__(self):
+        return int(self.get_area())
+
+class Trapezoid(Figure):
+    def __init__(self, basis_1, basis_2, height):
+        self.basis_1 = basis_1
+        self.basis_2 = basis_2
+        self.height = height
+
+    def get_area(self):
+        print(f'int -> Площадь трапеции с основаниями {self.basis_1} и {self.basis_2} и высотой {self.height} равна {self.height * (self.basis_1 + self.basis_2) / 2}')
+        return self.height * (self.basis_1 + self.basis_2) / 2
+
+    def __str__(self):
+        return f'str -> Трапеция с основаниями {self.basis_1} и {self.basis_2} и высотой {self.height}'
+
+    def __int__(self):
+        return int(self.get_area())
+
+print()
+rectangle = Rectangle(5, 10)
+print(str(rectangle))
+int(rectangle)
+print()
+circle = Circle(5.64)
+print(str(circle))
+int(circle)
+print()
+rectangular_triangle = RectangularTriangle(3, 4)
+print(str(rectangular_triangle))
+int(rectangular_triangle)
+print()
+trapezoid = Trapezoid(3, 4, 2)
+print(str(trapezoid))
+int(trapezoid)
+
+
 
 
 
