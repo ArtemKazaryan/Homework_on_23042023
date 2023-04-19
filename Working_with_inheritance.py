@@ -16,6 +16,66 @@
 # методами для подсчета площади.
 #
 # Решение:
+print()
+print('-'*49)
+print('*'*11, 'РЕЗУЛЬТАТЫ ПО ЗАДАНИЮ №1:', '*'*11)
+
+from math import pi
+
+class Figure:
+    print()
+    print(f'Площади известных фигур:')
+    def get_area(self):
+        pass
+
+class Rectangle(Figure):
+    def __init__(self, side_1, side_2):
+        self.side_1 = side_1
+        self.side_2 = side_2
+
+    def get_area(self):
+        print(f'Площадь прямоугольника со сторонами {self.side_1} и {self.side_2} равна {self.side_1 * self.side_2}')
+        return self.side_1 * self.side_2
+
+class Circle(Figure):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def get_area(self):
+        print(f'Площадь круга с радиусом {self.radius} равна {round(pi * self.radius ** 2, 3)}')
+        return round(pi * self.radius ** 2, 3)
+
+class RectangularTriangle(Figure):
+    def __init__(self, cathet_1, cathet_2):
+        self.cathet_1 = cathet_1
+        self.cathet_2 = cathet_2
+
+    def get_area(self):
+        print(f'Площадь прямоугольного треугольника с катетами {self.cathet_1} и {self.cathet_2} равна {(self.cathet_1 * self.cathet_2) / 2}')
+        return (self.cathet_1 * self.cathet_2) / 2
+
+class Trapezoid(Figure):
+    def __init__(self, basis_1, basis_2, height):
+        self.basis_1 = basis_1
+        self.basis_2 = basis_2
+        self.height = height
+
+    def get_area(self):
+        print(f'Площадь трапеции с основаниями {self.basis_1} и {self.basis_2} и высотой {self.height} равна {self.height * (self.basis_1 + self.basis_2) / 2}')
+        return self.height * (self.basis_1 + self.basis_2) / 2
+
+print()
+rectangle = Rectangle(5, 10)
+circle = Circle(5.64)
+rectangular_triangle = RectangularTriangle(3, 4)
+trapezoid = Trapezoid(3, 4, 2)
+
+rectangle.get_area()
+circle.get_area()
+rectangular_triangle.get_area()
+trapezoid.get_area()
+
+
 
 
 
