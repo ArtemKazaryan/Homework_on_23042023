@@ -9,6 +9,7 @@
 # Тема: Множественное наследование. Полиморфизм.
 # Реализация магических методов. Часть 6
 
+
 # Задание 1
 # Создать базовый класс Фигура с методом для подсчета
 # площади. Создать производные классы: прямоугольник,
@@ -177,8 +178,6 @@ int(trapezoid)
 
 
 
-
-
 # Задание 3
 # Создайте базовый класс Shape для рисования плоских
 # фигур.
@@ -198,8 +197,148 @@ int(trapezoid)
 # каждой из фигур.
 #
 # Решение:
+print()
+print('-'*49)
+print('*'*11, 'РЕЗУЛЬТАТЫ ПО ЗАДАНИЮ №3:', '*'*11)
 
+# Создание родительского класса Shape(Фигуры):
+class Shape:
+    # В конструкторе родительского класса прописываем ввод координат левого верхнего угла фигуры,
+    # конструктор в дальнейшем будет наследоваться с помощью функции super(), чтобы явно не ссылаться
+    # на родительский класс, т.к. он на уровень выше для всех дочек:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    # Метод показа кооринат фигуры:
+    def Show(self):
+        print(f'Координаты: ({self.x},{self.y})')
 
+    # Метод сохранения фигуры (её параметров, в данном случае координат левого верхнего угла) в файл:
+    def Save(self, filename):
+        with open(filename, 'w') as f:
+            f.write(f'{self.x} {self.y}')
 
+    # Метод загрузки из файла строки параметров фигуры:
+    @staticmethod
+    def Load(filename):
+        with open(filename, 'r') as f:
+            x, y = map(int, f.readline().split())
+        return Shape(x, y)
+
+# Создание дочернего класса Square(Квадрат) от родительского Shape(Фигуры):
+class Square(Shape):
+    # В конструкторе дочернего класса прописываем ввод координат левого верхнего угла квадрата и длину стороны
+    # а аттрибуты экземпляра берём из суперкласса:
+    def __init__(self, x, y, length):
+        super().__init__(x, y)
+        self.length = length
+
+    # Метод показа кооринат квадрата:
+    def Show(self):
+        print(f'Квадрат: Координаты: ({self.x},{self.y}),'
+              f' Длина: {self.length}')
+
+    # Метод сохранения квадрата (его параметров) в файл:
+    def Save(self, filename):
+        with open(filename, 'w') as f:
+            f.write(f'{self.x} {self.y} {self.length}')
+
+    # Метод загрузки из файла строки параметров квадрата:
+    @staticmethod
+    def Load(filename):
+        with open(filename, 'r') as f:
+            x, y, length = map(int, f.readline().split())
+        return Square(x, y, length)
+
+# Создание дочернего класса Rectangle(Прямоугольник) от родительского Shape(Фигуры):
+class Rectangle(Shape):
+    # В конструкторе дочернего класса прописываем ввод координат левого верхнего угла прямоугольника,
+    # ширину и высоту а аттрибуты экземпляра берём из суперкласса:
+    def __init__(self, x, y, width, height):
+        super().__init__(x, y)
+        self.width = width
+        self.height = height
+
+    # Метод показа кооринат прямоугольника:
+    def Show(self):
+        print(f'Прямоугольник: Координаты: ({self.x},{self.y}),'
+              f' Ширина: {self.width}, Высота: {self.height}')
+
+    # Метод сохранения прямоугольника (его параметров) в файл:
+    def Save(self, filename):
+        with open(filename, 'w') as f:
+            f.write(f'{self.x} {self.y} {self.width} {self.height}')
+
+    # Метод загрузки из файла строки параметров прямоугольника:
+    @staticmethod
+    def Load(filename):
+        with open(filename, 'r') as f:
+            x, y, width, height = map(int, f.readline().split())
+        return Rectangle(x, y, width, height)
+
+# Создание дочернего класса Circle(Окружность) от родительского Shape(Фигуры):
+class Circle(Shape):
+    # В конструкторе дочернего класса прописываем ввод координат центра окружности и радиус
+    # а аттрибуты экземпляра берём из суперкласса:
+    def __init__(self, x, y, radius):
+        super().__init__(x, y)
+        self.radius = radius
+
+    # Метод показа кооринат окружности:
+    def Show(self):
+        print(f'Круг: Координаты: ({self.x},{self.y}),'
+              f' Радиус: {self.radius}')
+
+    # Метод сохранения окружности (её параметров) в файл:
+    def Save(self, filename):
+        with open(filename, 'w') as f:
+            f.write(f'{self.x} {self.y} {self.radius}')
+
+    # Метод загрузки из файла строки параметров окружности:
+    @staticmethod
+    def Load(filename):
+        with open(filename, 'r') as f:
+            x, y, radius = map(int, f.readline().split())
+        return Circle(x, y, radius)
+
+# Создание дочернего класса Ellipse(Эллипс) от родительского Shape(Фигуры):
+class Ellipse(Shape):
+    # В конструкторе дочернего класса прописываем ввод координат (эллипса), а именно верхнего
+    # угла описанного вокруг него прямоугольника со сторонами, параллельными осям координат, ширину и высоту
+    # а аттрибуты экземпляра берём из суперкласса:
+    def __init__(self, x, y, width, height):
+        super().__init__(x, y)
+        self.width = width
+        self.height = height
+
+    # Метод показа кооринат эллипса:
+    def Show(self):
+        print(f'Эллипс: Координаты: ({self.x},{self.y}),'
+              f' Ширина: {self.width}, Высота: {self.height}')
+
+    # Метод сохранения эллипса (его параметров) в файл:
+    def Save(self, filename):
+        with open(filename, 'w') as f:
+            f.write(f'{self.x} {self.y} {self.width} {self.height}')
+
+    # Метод загрузки из файла строки параметров эллипса:
+    @staticmethod
+    def Load(filename):
+        with open(filename, 'r') as f:
+            x, y, width, height = map(int, f.readline().split())
+        return Ellipse(x, y, width, height)
+
+print()
+# Создание (прямо в списке) фигур с заданными параметрами как элементов списка shapes:
+shapes = [Square(0, 0, 5), Rectangle(10, 10, 6, 4), Circle(20, 20, 3), Ellipse(30, 30, 8, 5)]
+
+# Итерирование по списку
+for shape in shapes:
+    # Сохранение фигур в файлы с соответствующими названиями по ходу итерации
+    shape.Save(f'{type(shape).__name__}.txt')
+    # Загрузка фигур из файлов с соответствующими названиями по ходу итерации
+    # в переменную new_shape классового типа
+    new_shape = type(shape).Load(f'{type(shape).__name__}.txt')
+    new_shape.Show()
 
